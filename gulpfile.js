@@ -10,19 +10,19 @@ gulp.task('browserify', function(){
   gulp.src('src/App.js')
     .pipe(browserify({transform: 'reactify'}))
     .pipe(concat('App.js'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('app'));
 });
 
 gulp.task('clean', function() {
-  return gulp.src('./dist/**/*.*', {read: false}) // much faster
+  return gulp.src('./app/**/*.*', {read: false}) // much faster
     .pipe(rimraf());
 });
 
 gulp.task('copy', function(){
   gulp.src('src/index.html')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('app'));
   gulp.src('src/styles/*.css')
-    .pipe(gulp.dest('dist/styles'));
+    .pipe(gulp.dest('app/styles'));
 });
 
 gulp.task('watch', function(){
