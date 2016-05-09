@@ -1,4 +1,4 @@
 var React = require('react');
-var Parent = require('./components/Parent');
+var Container = require('./components/Container');
 
-React.render(<Parent />, document.getElementById('app'));
+React.render(<Container />, document.getElementById('app'));
