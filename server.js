@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
   // res.render('index');
 
   //maybe try this if above doesnt work
-  res.sendfile('./dist/index.html');
+  res.sendfile('./index.html');
 });
 
 app.listen(port, function() {
