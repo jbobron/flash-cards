@@ -15,12 +15,12 @@ app.use(express.static(__dirname + '/dist'));
 
 // set the home page route
 app.get('/', function(req, res) {
-
+  res.send("hello world")
   // ejs render automatically looks in the views folder
   // res.render('index');
 
   //maybe try this if above doesnt work
-  res.sendfile('./index.html');
+  // res.sendfile('./index.html');
 });
 
 app.listen(port, function() {
