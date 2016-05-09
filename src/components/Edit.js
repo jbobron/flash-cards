@@ -6,7 +6,7 @@ var Edit = React.createClass({
     return (
       <div>
         <h1> Edit Mode! </h1>
-        <Cards cards={this.props.cards} editCard={this.props.editCard}/>
+        <Cards cards={this.props.cards} editCard={this.props.editCard} deleteCard={this.props.deleteCard}/>
         <button onClick={this.props.addCard}>Add Card</button>
       </div>
     )

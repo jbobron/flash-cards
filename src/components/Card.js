@@ -22,6 +22,10 @@ var Card = React.createClass({
     this.toggleEditMode();
     this.props.editCard(id, front, back);
   },
+  hanldeDelete:function(id){
+    this.toggleEditMode();
+    this.props.deleteCard(id);
+  },
   render: function(){
     if(!this.state.inEditMode){
       return (
@@ -43,6 +47,7 @@ var Card = React.createClass({
           <hr styles={styles.hr}></hr>
           <input onChange={this.handleBackEditModeInputChange} value={this.state.tempBack} styles={styles.card.back}></input>
           <button onClick={this.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack)} styles={styles.card.edit}>Done</button>
+          <button onClick={this.hanldeDelete.bind(this,this.props.id)}>Delete Card</button>
         </div>
         )
     }

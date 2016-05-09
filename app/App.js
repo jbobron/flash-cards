@@ -22081,6 +22081,10 @@ var Card = React.createClass({displayName: "Card",
     this.toggleEditMode();
     this.props.editCard(id, front, back);
   },
+  hanldeDelete:function(id){
+    this.toggleEditMode();
+    this.props.deleteCard(id);
+  },
   render: function(){
     if(!this.state.inEditMode){
       return (
@@ -22101,7 +22105,8 @@ var Card = React.createClass({displayName: "Card",
           React.createElement("input", {onChange: this.handleFrontEditModeInputChange, value: this.state.tempFront, styles: styles.card.front}), 
           React.createElement("hr", {styles: styles.hr}), 
           React.createElement("input", {onChange: this.handleBackEditModeInputChange, value: this.state.tempBack, styles: styles.card.back}), 
-          React.createElement("button", {onClick: this.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack), styles: styles.card.edit}, "Done")
+          React.createElement("button", {onClick: this.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack), styles: styles.card.edit}, "Done"), 
+          React.createElement("button", {onClick: this.hanldeDelete.bind(this,this.props.id)}, "Delete Card")
         )
         )
     }
@@ -22151,6 +22156,7 @@ var Cards = React.createClass({displayName: "Cards",
       return (
         React.createElement(Card, {id: i, 
               editCard: context.props.editCard, 
+              deleteCard: context.props.deleteCard, 
               front: card.front, 
               back: card.back}
         )
@@ -22177,7 +22183,7 @@ var Container = React.createClass({displayName: "Container",
   getInitialState: function(){
     return {
       currentPage: "edit",
-      cards: [{front: "front1", back:"back1"},{front: "front2", back:"back2"}]
+      cards: [{front: "front0", back:"back0"},{front: "front1", back:"back1"}, {front: "front2", back:"back2"}, {front: "front3", back:"back3"}]
     }
   },
   addCard: function(){
@@ -22189,8 +22195,12 @@ var Container = React.createClass({displayName: "Container",
     this.state.cards[id].front = newFront;
     this.state.cards[id].back = newBack;
     this.setState({ cards: this.state.cards });
-    this.forceUpdate();
-
+  },
+  deleteCard: function(id){
+    console.log("DELETING", id, this.state.cards[id])
+    this.state.cards.splice(id, 1);
+    this.setState({ cards: this.state.cards });
+    console.log(this.state.cards)
   },
   toggleEditQuizMode: function(){
     var newcurrentPage = this.state.currentPage === "edit" ? "quiz" : "edit";
@@ -22202,7 +22212,8 @@ var Container = React.createClass({displayName: "Container",
       partial = React.createElement(Edit, {
                   cards: this.state.cards, 
                   addCard: this.addCard, 
-                  editCard: this.editCard}
+                  editCard: this.editCard, 
+                  deleteCard: this.deleteCard}
                 );
     } else if(this.state.currentPage === "quiz"){
       partial = React.createElement(Quiz, {cards: this.state.cards});
@@ -22244,7 +22255,7 @@ var Edit = React.createClass({displayName: "Edit",
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, " Edit Mode! "), 
-        React.createElement(Cards, {cards: this.props.cards, editCard: this.props.editCard}), 
+        React.createElement(Cards, {cards: this.props.cards, editCard: this.props.editCard, deleteCard: this.props.deleteCard}), 
         React.createElement("button", {onClick: this.props.addCard}, "Add Card")
       )
     )

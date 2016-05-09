@@ -9,6 +9,7 @@ var Cards = React.createClass({
       return (
         <Card id={i} 
               editCard={context.props.editCard}
+              deleteCard={context.props.deleteCard}
               front={card.front}
               back={card.back} 
         />
