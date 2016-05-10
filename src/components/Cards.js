@@ -7,7 +7,7 @@ var Cards = React.createClass({
     var context = this;
     var cards = this.props.cards.map(function(card, i){
       return (
-        <Card id={i} 
+        <Card id={card.id} 
               editCard={context.props.editCard}
               deleteCard={context.props.deleteCard}
               front={card.front}

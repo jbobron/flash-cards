@@ -1,48 +1,46 @@
 var React = require('react');
 var StyleSheet = require('react-style');
+var CardNonEditMode = require('./CardNonEditMode');
+var CardEditMode = require('./CardEditMode');
 
 var Card = React.createClass({
   getInitialState: function(){
     return {
-      inEditMode: false,
-      tempFront: this.props.front,
-      tempBack: this.props.back
+      inEditMode: false
     }
   },
-  toggleEditMode: function(){ this.setState({ inEditMode: !this.state.inEditMode }); },
-  handleFrontEditModeInputChange: function(event){ this.setState({tempFront: event.target.value}); },
-  handleBackEditModeInputChange: function(event){ this.setState({tempBack: event.target.value}); },
+  toggleEditMode: function(){ 
+    this.setState({ inEditMode: !this.state.inEditMode });
+
+  },
   handleDone: function(id, front, back){
     this.toggleEditMode();
     this.props.editCard(id, front, back);
   },
-  hanldeDelete:function(id){
+  handleDelete:function(id){
     this.toggleEditMode();
     this.props.deleteCard(id);
   },
   render: function(){
     if(!this.state.inEditMode){
       return (
-        <div id={this.props.id} styles={styles.card}>
-          <div styles={styles.card.front}>
-            {this.props.front}
-          </div>
-          <hr styles={styles.hr}></hr>
-          <div styles={styles.card.back}>
-            {this.props.back}
-          </div>
-          <button onClick={this.toggleEditMode} styles={styles.card.edit}>Edit</button>
-        </div>
+          <CardNonEditMode front={this.props.front} 
+                           back={this.props.back} 
+                           id={this.props.id} 
+                           styles={styles.card}
+                           toggleEditMode={this.toggleEditMode}
+                           />
       )
     } else { //in edit mode
       return (
-        <div id={this.props.id} styles={styles.card}>
-          <input onChange={this.handleFrontEditModeInputChange} value={this.state.tempFront} styles={styles.card.front}></input>
-          <hr styles={styles.hr}></hr>
-          <input onChange={this.handleBackEditModeInputChange} value={this.state.tempBack} styles={styles.card.back}></input>
-          <button onClick={this.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack)} styles={styles.card.edit}>Done</button>
-          <button onClick={this.hanldeDelete.bind(this,this.props.id)}>Delete Card</button>
-        </div>
+          <CardEditMode front={this.props.front} 
+                        back={this.props.back} 
+                        id={this.props.id}
+                        handleDelete={this.handleDelete}
+                        handleDone={this.handleDone}
+                        toggleEditMode={this.toggleEditMode}
+                        styles={styles.card} 
+                        />
         )
     }
   }

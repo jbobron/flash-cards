@@ -8,21 +8,34 @@ var Container = React.createClass({
   getInitialState: function(){
     return {
       currentPage: "edit",
-      cards: [{front: "front0", back:"back0"},{front: "front1", back:"back1"}, {front: "front2", back:"back2"}, {front: "front3", back:"back3"}]
+      cards: [{id:0, front: "front0", back:"back0"},{id:1, front: "front1", back:"back1"}, {id:2, front: "front2", back:"back2"}, {id:3, front: "front3", back:"back3"}],
+      idCounter: 4
     }
   },
   addCard: function(){
-    var newCard = {front:"", back:""};
+    var newCard = {id: this.state.idCounter, front:"", back:""};
     this.state.cards.push(newCard);
     this.setState({  cards: this.state.cards  });
+    this.state.idCounter++;
   },
   editCard: function(id, newFront, newBack){
-    this.state.cards[id].front = newFront;
-    this.state.cards[id].back = newBack;
+    for(var i = 0; i < this.state.cards.length; i++){
+      if(id === this.state.cards[i].id){
+        this.state.cards[i].front = newFront;
+        this.state.cards[i].back = newBack;
+      }
+    }
     this.setState({ cards: this.state.cards });
+    debugger;
   },
   deleteCard: function(id){
-    this.state.cards.splice(id, 1);
+    for(var i = 0; i < this.state.cards.length; i++){
+      if(id === this.state.cards[i].id){
+        index = this.state.cards.indexOf(this.state.cards[i])
+        this.state.cards.splice(index, 1);
+      }
+    }
+    console.log("DELETE CARD", id, this.state.cards)
     this.setState({ cards: this.state.cards });
   },
   toggleEditQuizMode: function(){
@@ -32,6 +45,7 @@ var Container = React.createClass({
   render: function(){
     var partial;
     if(this.state.currentPage === "edit"){
+      console.log("container rerender with state", this.state.cards)
       partial = <Edit
                   cards={this.state.cards}
                   addCard={this.addCard}
