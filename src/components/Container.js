@@ -26,7 +26,6 @@ var Container = React.createClass({
       }
     }
     this.setState({ cards: this.state.cards });
-    debugger;
   },
   deleteCard: function(id){
     for(var i = 0; i < this.state.cards.length; i++){
@@ -35,7 +34,6 @@ var Container = React.createClass({
         this.state.cards.splice(index, 1);
       }
     }
-    console.log("DELETE CARD", id, this.state.cards)
     this.setState({ cards: this.state.cards });
   },
   toggleEditQuizMode: function(){
