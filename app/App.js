@@ -22068,15 +22068,9 @@ var Card = React.createClass({displayName: "Card",
       tempBack: this.props.back
     }
   },
-  toggleEditMode: function(){
-    this.setState({ inEditMode: !this.state.inEditMode });
-  },
-  handleFrontEditModeInputChange: function(event){
-    this.setState({tempFront: event.target.value});
-  },
-  handleBackEditModeInputChange: function(event){
-    this.setState({tempBack: event.target.value});
-  },
+  toggleEditMode: function(){ this.setState({ inEditMode: !this.state.inEditMode }); },
+  handleFrontEditModeInputChange: function(event){ this.setState({tempFront: event.target.value}); },
+  handleBackEditModeInputChange: function(event){ this.setState({tempBack: event.target.value}); },
   handleDone: function(id, front, back){
     this.toggleEditMode();
     this.props.editCard(id, front, back);
@@ -22197,10 +22191,8 @@ var Container = React.createClass({displayName: "Container",
     this.setState({ cards: this.state.cards });
   },
   deleteCard: function(id){
-    console.log("DELETING", id, this.state.cards[id])
     this.state.cards.splice(id, 1);
     this.setState({ cards: this.state.cards });
-    console.log(this.state.cards)
   },
   toggleEditQuizMode: function(){
     var newcurrentPage = this.state.currentPage === "edit" ? "quiz" : "edit";
@@ -22266,13 +22258,28 @@ module.exports = Edit;
 
 },{"./Cards":168,"react":165}],171:[function(require,module,exports){
 var React = require('react');
-
+var ScoreBoard = require('./ScoreBoard');
+var QuizCard = require('./QuizCard');
+var QuizButtons = require('./QuizButtons');
 
 var Quiz = React.createClass({displayName: "Quiz",
+  getInitialState: function(){
+    return {
+      score: {correct: 0, incorrect: 0},
+      incorrectPile: [],
+      correctPile: [],
+      numOfCardsInDeck: this.props.cards.length
+    }
+  },
+  cardCorrect: function(){ this.state.score.correct++; this.setState({ score: this.state.score}) },
+  cardIncorrect: function(){ this.state.score.incorrect++; this.setState({ score: this.state.score}) },
   render: function(){
     return (
       React.createElement("div", null, 
-      	React.createElement("h1", null, " Quiz Mode! ")
+      	React.createElement("h1", null, " Quiz Mode! "), 
+          React.createElement(ScoreBoard, {score: this.state.score}), 
+          React.createElement(QuizCard, null), 
+          React.createElement(QuizButtons, {cardCorrect: this.cardCorrect, cardIncorrect: this.cardIncorrect})
       )
     )
   }
@@ -22303,10 +22310,75 @@ flipCard: function(){
 
 */
 
-},{"react":165}],172:[function(require,module,exports){
+},{"./QuizButtons":172,"./QuizCard":173,"./ScoreBoard":174,"react":165}],172:[function(require,module,exports){
+var React = require('react');
+
+
+var QuizButtons = React.createClass({displayName: "QuizButtons",
+  render: function(){
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", null, 
+          React.createElement("button", {onClick: this.props.cardCorrect}, " Correct ")
+        ), 
+        React.createElement("div", null, 
+          React.createElement("button", {onClick: this.props.cardIncorrect}, " Incorrect ")
+        )
+      )
+    )
+  }
+});
+
+module.exports = QuizButtons;
+
+
+
+},{"react":165}],173:[function(require,module,exports){
+var React = require('react');
+
+
+var QuizCard = React.createClass({displayName: "QuizCard",
+  getInitialState: function(){
+    return {
+
+    }
+  },
+  render: function(){
+    return (
+      React.createElement("div", null
+      )
+    )
+  }
+});
+
+module.exports = QuizCard;
+
+
+},{"react":165}],174:[function(require,module,exports){
+var React = require('react');
+
+
+var ScoreBoard = React.createClass({displayName: "ScoreBoard",
+  render: function(){
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", null, 
+          "Right: ", this.props.score.correct
+        ), 
+        React.createElement("div", null, 
+          "Wrong: ", this.props.score.incorrect
+        )
+      )
+    )
+  }
+});
+
+module.exports = ScoreBoard;
+
+},{"react":165}],175:[function(require,module,exports){
 var React = require('react');
 var Container = require('./components/Container');
 
 React.render(React.createElement(Container, null), document.getElementById('app'));
 
-},{"./components/Container":169,"react":165}]},{},[172])
+},{"./components/Container":169,"react":165}]},{},[175])

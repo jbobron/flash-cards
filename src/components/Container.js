@@ -22,10 +22,8 @@ var Container = React.createClass({
     this.setState({ cards: this.state.cards });
   },
   deleteCard: function(id){
-    console.log("DELETING", id, this.state.cards[id])
     this.state.cards.splice(id, 1);
     this.setState({ cards: this.state.cards });
-    console.log(this.state.cards)
   },
   toggleEditQuizMode: function(){
     var newcurrentPage = this.state.currentPage === "edit" ? "quiz" : "edit";

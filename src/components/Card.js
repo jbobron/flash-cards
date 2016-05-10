@@ -9,15 +9,9 @@ var Card = React.createClass({
       tempBack: this.props.back
     }
   },
-  toggleEditMode: function(){
-    this.setState({ inEditMode: !this.state.inEditMode });
-  },
-  handleFrontEditModeInputChange: function(event){
-    this.setState({tempFront: event.target.value});
-  },
-  handleBackEditModeInputChange: function(event){
-    this.setState({tempBack: event.target.value});
-  },
+  toggleEditMode: function(){ this.setState({ inEditMode: !this.state.inEditMode }); },
+  handleFrontEditModeInputChange: function(event){ this.setState({tempFront: event.target.value}); },
+  handleBackEditModeInputChange: function(event){ this.setState({tempBack: event.target.value}); },
   handleDone: function(id, front, back){
     this.toggleEditMode();
     this.props.editCard(id, front, back);
