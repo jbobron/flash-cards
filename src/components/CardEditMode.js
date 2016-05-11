@@ -15,9 +15,9 @@ var CardEditMode = React.createClass({
       <div id={this.props.id} styles={styles.card}>
         <input onChange={this.handleFrontEditModeInputChange} value={this.state.tempFront} styles={styles.card.front}></input>
         <hr styles={styles.hr}></hr>
-        <input onChange={this.handleBackEditModeInputChange} value={this.state.tempBack} styles={styles.card.back}></input>
-        <button onClick={this.props.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack)} styles={styles.card.edit}>Done</button>
-        <button onClick={this.props.handleDelete.bind(this,this.props.id)}>Delete Card</button>
+        <input onChange={this.handleBackEditModeInputChange} value={this.state.tempBack} styles={styles.card.back}></input><br></br>
+        <button onClick={this.props.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack)} styles={styles.button}>Done</button>
+        <button onClick={this.props.handleDelete.bind(this,this.props.id)} styles={styles.button}>Delete Card</button>
       </div>
     );
   }
@@ -34,21 +34,39 @@ var styles = StyleSheet.create({
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
-    // 'front':{
-    //   'color':'red'
-    // },
-    edit:{
+    'edit':{
       'position': 'relative',
       'bottom': '-46px',
       'right': '-100px'
     }
   },
-  hr: {
-  'border':'none',
-  'border-top':'1px dotted black',
-  'color':'#fff',
-  'background-color':'#fff',
-  'height':'1px',
-  'width':'50%'
-}
-})
+  'hr': {
+    'border':'none',
+    'border-top':'1px dotted black',
+    'color':'#fff',
+    'background-color':'#fff',
+    'height':'1px',
+    'width':'50%'
+  },
+  'button': {
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '10px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  }
+});

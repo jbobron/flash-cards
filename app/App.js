@@ -22154,9 +22154,9 @@ var CardEditMode = React.createClass({displayName: "CardEditMode",
       React.createElement("div", {id: this.props.id, styles: styles.card}, 
         React.createElement("input", {onChange: this.handleFrontEditModeInputChange, value: this.state.tempFront, styles: styles.card.front}), 
         React.createElement("hr", {styles: styles.hr}), 
-        React.createElement("input", {onChange: this.handleBackEditModeInputChange, value: this.state.tempBack, styles: styles.card.back}), 
-        React.createElement("button", {onClick: this.props.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack), styles: styles.card.edit}, "Done"), 
-        React.createElement("button", {onClick: this.props.handleDelete.bind(this,this.props.id)}, "Delete Card")
+        React.createElement("input", {onChange: this.handleBackEditModeInputChange, value: this.state.tempBack, styles: styles.card.back}), React.createElement("br", null), 
+        React.createElement("button", {onClick: this.props.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack), styles: styles.button}, "Done"), 
+        React.createElement("button", {onClick: this.props.handleDelete.bind(this,this.props.id), styles: styles.button}, "Delete Card")
       )
     );
   }
@@ -22173,24 +22173,43 @@ var styles = StyleSheet.create({
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
-    // 'front':{
-    //   'color':'red'
-    // },
-    edit:{
+    'edit':{
       'position': 'relative',
       'bottom': '-46px',
       'right': '-100px'
     }
   },
-  hr: {
-  'border':'none',
-  'border-top':'1px dotted black',
-  'color':'#fff',
-  'background-color':'#fff',
-  'height':'1px',
-  'width':'50%'
-}
-})
+  'hr': {
+    'border':'none',
+    'border-top':'1px dotted black',
+    'color':'#fff',
+    'background-color':'#fff',
+    'height':'1px',
+    'width':'50%'
+  },
+  'button': {
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '10px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  }
+});
+
 
 },{"react":165,"react-style":7}],169:[function(require,module,exports){
 var React = require('react');
@@ -22202,14 +22221,16 @@ var CardNonEditMode = React.createClass({displayName: "CardNonEditMode",
   render: function() {
     return (
       React.createElement("div", {id: this.props.id, styles: styles.card}, 
-        React.createElement("div", {style: "background-image: url(./../flashcard.jpg)", styles: styles.card.front}, 
-          this.props.front
+        React.createElement("div", {styles: styles.cardContent}, 
+          React.createElement("div", {styles: styles.card.front}, 
+            this.props.front
+          ), 
+          React.createElement("hr", {styles: styles.hr}), 
+          React.createElement("div", {styles: styles.card.back}, 
+            this.props.back
+          )
         ), 
-        React.createElement("hr", {styles: styles.hr}), 
-        React.createElement("div", {styles: styles.card.back}, 
-          this.props.back
-        ), 
-        React.createElement("button", {onClick: this.props.toggleEditMode, styles: styles.card.edit}, "Edit")
+        React.createElement("button", {onClick: this.props.toggleEditMode, styles: styles.button}, "Edit")
       )
     );
   }
@@ -22219,36 +22240,62 @@ var CardNonEditMode = React.createClass({displayName: "CardNonEditMode",
 module.exports = CardNonEditMode;
 
 var styles = StyleSheet.create({
-  card: {
-    // 'background-image': 'url(./../flashcard.jpg)',
+  'card': {
     'background': '#ffffcc',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
-    'front':{
-    },
-    edit:{
+    'edit':{
       'position': 'relative',
       'bottom': '-46px',
       'right': '-100px'
-    }
+    },
+    'front':{},
   },
-  hr: {
-  'border':'none',
-  'border-top':'1px dotted black',
-  color:'#fff',
-  'background-color':'#fff',
-  'height':'1px',
-  'width':'50%'
-}
-})
+  'hr': {
+    'border':'none',
+    'border-top':'1px dotted black',
+    'color':'#fff',
+    'background-color':'#fff',
+    'height':'1px',
+    'width':'50%'
+  },
+  'cardContent':{
+      'min-height': '39px'
+  },
+  'button': {
+    'position': 'relative',
+    'bottom': '-32px',
+    'right': '-99px',
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '10px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  }
+});
 
 },{"react":165,"react-style":7}],170:[function(require,module,exports){
 
 var React = require('react');
 var Card = require('./Card');
+var StyleSheet = require('react-style');
 
 var Cards = React.createClass({displayName: "Cards",
   render: function(){
@@ -22264,8 +22311,9 @@ var Cards = React.createClass({displayName: "Cards",
       );
     });
     return (
-      React.createElement("div", null, 
-          cards
+      React.createElement("div", {styles: styles.container}, 
+          cards, 
+          React.createElement("button", {styles: styles.addButton, onClick: this.props.addCard}, "Add Card")
       )
     );
   }
@@ -22273,7 +22321,52 @@ var Cards = React.createClass({displayName: "Cards",
 
 module.exports = Cards;
 
-},{"./Card":167,"react":165}],171:[function(require,module,exports){
+
+var styles = StyleSheet.create({
+'button': {
+    'position': 'relative',
+    'bottom': '-32px',
+    'right': '-99px',
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '10px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  },
+  'addButton': {
+    'display': 'inline-block',
+    'padding': '12px 12px',
+    'margin': '5px',
+    'height': '100px',
+    'width': '100px',
+    'border-radius': '100px',
+    'position': 'relative',
+    'margin': '39px',
+    'margin-left': '85px',
+    'outline': '0'
+  },
+  'container':{
+    'display': 'flex',
+    'flex-flow': 'row wrap'
+  }
+
+})
+
+},{"./Card":167,"react":165,"react-style":7}],171:[function(require,module,exports){
 var React = require('react');
 var Edit = require('./Edit');
 var Quiz = require('./Quiz');
@@ -22319,7 +22412,6 @@ var Container = React.createClass({displayName: "Container",
   render: function(){
     var partial;
     if(this.state.currentPage === "edit"){
-      console.log("container rerender with state", this.state.cards)
       partial = React.createElement(Edit, {
                   cards: this.state.cards, 
                   addCard: this.addCard, 
@@ -22331,7 +22423,7 @@ var Container = React.createClass({displayName: "Container",
     }
     return (
       React.createElement("div", null, 
-       React.createElement("button", {onClick: this.toggleEditQuizMode}, "Switch to Edit/Quiz Mode"), 
+       React.createElement("button", {styles: styles.button, onClick: this.toggleEditQuizMode}, "Switch to Edit/Quiz Mode"), 
         partial
       )
     );
@@ -22340,40 +22432,48 @@ var Container = React.createClass({displayName: "Container",
 
 module.exports = Container;
 
-
-
-// render: function(){
-  //   var cards = this.state.cards.map(function(card){
-  //     return <li> <p>Front:{card.front}</p> </li>;
-  //   });
-  //   return (
-  //     <div>
-  //       <h1> Flipcards! </h1>
-  //       <ul>
-  //         {cards}
-  //       </ul>
-  //       <AddCard handleAddCard={this.handleAddCard}/>
-  //     </div>
-  //   )
-  // },
+var styles = StyleSheet.create({
+  'button': {
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '14px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  }
+});
 
 },{"./Edit":172,"./Quiz":173,"react":165,"react-style":7,"underscore":166}],172:[function(require,module,exports){
 var React = require('react');
 var Cards = require('./Cards');
+
 
 var Edit = React.createClass({displayName: "Edit",
   render: function(){
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, " Edit Mode! "), 
-        React.createElement(Cards, {cards: this.props.cards, editCard: this.props.editCard, deleteCard: this.props.deleteCard}), 
-        React.createElement("button", {onClick: this.props.addCard}, "Add Card")
+        React.createElement(Cards, {cards: this.props.cards, addCard: this.props.addCard, editCard: this.props.editCard, deleteCard: this.props.deleteCard})
       )
     )
   }
 });
 
 module.exports = Edit;
+
 
 },{"./Cards":170,"react":165}],173:[function(require,module,exports){
 var React = require('react');
@@ -22416,7 +22516,6 @@ var Quiz = React.createClass({displayName: "Quiz",
       var correct = this.state.score.correct;
       var incorrect = this.state.score.incorrect;
       alert("Game over! You got "+ correct+ " correct and " + incorrect+ " incorrect.  That is %"+(correct/(correct+incorrect))*100+ " correct!");
-      debugger;
       //this.showSummary();
       this.props.toggleEditQuizMode();
     }
@@ -22446,12 +22545,12 @@ var StyleSheet = require('react-style');
 var QuizButtons = React.createClass({displayName: "QuizButtons",
   render: function(){
     return (
-      React.createElement("div", null, 
-        React.createElement("div", null, 
-          React.createElement("button", {onClick: this.props.cardCorrect}, " Correct ")
+      React.createElement("ul", {styles: styles.ul}, 
+        React.createElement("li", {styles: styles.li}, 
+          React.createElement("button", {styles: styles.greenbutton, onClick: this.props.cardCorrect}, " Correct ")
         ), 
-        React.createElement("div", null, 
-          React.createElement("button", {onClick: this.props.cardIncorrect}, " Incorrect ")
+        React.createElement("li", {styles: styles.li}, 
+          React.createElement("button", {styles: styles.redbutton, onClick: this.props.cardIncorrect}, " Incorrect ")
         )
       )
     )
@@ -22460,6 +22559,63 @@ var QuizButtons = React.createClass({displayName: "QuizButtons",
 
 module.exports = QuizButtons;
 
+var styles = StyleSheet.create({
+  'greenbutton':{
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '14px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px',
+    'background-color': 'green'
+  },
+  'redbutton':{
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '14px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px',
+    'background-color': 'red'
+  },
+  'ul':{
+    'list-style-type': 'none',
+    'margin': 0,
+    'padding': 0,
+    'margin-left': '50px'
+  },
+  'li':{
+    'display': 'inline'
+
+
+  }
+})
 
 
 },{"react":165,"react-style":7}],175:[function(require,module,exports){
@@ -22509,27 +22665,6 @@ var styles = StyleSheet.create({
 }
 })
 
-/*
-getInitialState: function(){
-    return {
-      isFlipped: false
-    }
-  },
-flipCard: function(){
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    })
-  },
-  render: function(){
-    var side = !this.state.isFlipped ? this.props.front : this.props.back;
-    return (
-      <div>
-        <div onClick={this.flipCard} styles={styles.card}>{side}</div>
-      </div>
-    )
-  }
-
-*/
 
 },{"react":165,"react-style":7}],176:[function(require,module,exports){
 var React = require('react');

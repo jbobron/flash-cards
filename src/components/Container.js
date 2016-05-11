@@ -43,7 +43,6 @@ var Container = React.createClass({
   render: function(){
     var partial;
     if(this.state.currentPage === "edit"){
-      console.log("container rerender with state", this.state.cards)
       partial = <Edit
                   cards={this.state.cards}
                   addCard={this.addCard}
@@ -55,7 +54,7 @@ var Container = React.createClass({
     }
     return (
       <div>
-       <button onClick={this.toggleEditQuizMode}>Switch to Edit/Quiz Mode</button>
+       <button styles={styles.button} onClick={this.toggleEditQuizMode}>Switch to Edit/Quiz Mode</button>
         {partial}
       </div>
     );
@@ -64,19 +63,26 @@ var Container = React.createClass({
 
 module.exports = Container;
 
-
-
-// render: function(){
-  //   var cards = this.state.cards.map(function(card){
-  //     return <li> <p>Front:{card.front}</p> </li>;
-  //   });
-  //   return (
-  //     <div>
-  //       <h1> Flipcards! </h1>
-  //       <ul>
-  //         {cards}
-  //       </ul>
-  //       <AddCard handleAddCard={this.handleAddCard}/>
-  //     </div>
-  //   )
-  // },
+var styles = StyleSheet.create({
+  'button': {
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '14px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px'
+  }
+});

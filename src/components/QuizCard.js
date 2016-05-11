@@ -43,25 +43,3 @@ var styles = StyleSheet.create({
   'width':'50%'
 }
 })
-
-/*
-getInitialState: function(){
-    return {
-      isFlipped: false
-    }
-  },
-flipCard: function(){
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    })
-  },
-  render: function(){
-    var side = !this.state.isFlipped ? this.props.front : this.props.back;
-    return (
-      <div>
-        <div onClick={this.flipCard} styles={styles.card}>{side}</div>
-      </div>
-    )
-  }
-
-*/
