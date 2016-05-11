@@ -1,12 +1,13 @@
 var React = require('react');
 var StyleSheet = require('react-style');
 
+
 var CardNonEditMode = React.createClass({
 
   render: function() {
     return (
       <div id={this.props.id} styles={styles.card}>
-        <div styles={styles.card.front}>
+        <div style="background-image: url(./../flashcard.jpg)" styles={styles.card.front}>
           {this.props.front}
         </div>
         <hr styles={styles.hr}></hr>
@@ -22,17 +23,15 @@ var CardNonEditMode = React.createClass({
 
 module.exports = CardNonEditMode;
 
-
 var styles = StyleSheet.create({
   card: {
-    'background': '#ffffcc',
+    'background-image': 'url(./../flashcard.jpg)',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
     'front':{
-      'color':'red'
     },
     edit:{
       'position': 'relative',

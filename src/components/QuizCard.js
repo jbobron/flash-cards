@@ -4,7 +4,6 @@ var StyleSheet = require('react-style');
 
 var QuizCard = React.createClass({
   render: function(){
-    console.log("isFlipped", this.props.isFlipped)
     var side = !this.props.isFlipped ? this.props.cards[this.props.currentCardIndex].front : this.props.cards[this.props.currentCardIndex].back;
     return (
       <div>
@@ -19,7 +18,7 @@ module.exports = QuizCard;
 
 var styles = StyleSheet.create({
   card: {
-    'background': '#ffffcc',
+    'background-image': 'url(./../flashcard.jpg)',
     'height': '100px',
     'width': '200px',
     'padding': '20px',

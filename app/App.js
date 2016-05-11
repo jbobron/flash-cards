@@ -22196,12 +22196,13 @@ var styles = StyleSheet.create({
 var React = require('react');
 var StyleSheet = require('react-style');
 
+
 var CardNonEditMode = React.createClass({displayName: "CardNonEditMode",
 
   render: function() {
     return (
       React.createElement("div", {id: this.props.id, styles: styles.card}, 
-        React.createElement("div", {styles: styles.card.front}, 
+        React.createElement("div", {style: "background-image: url(./../flashcard.jpg)", styles: styles.card.front}, 
           this.props.front
         ), 
         React.createElement("hr", {styles: styles.hr}), 
@@ -22217,17 +22218,15 @@ var CardNonEditMode = React.createClass({displayName: "CardNonEditMode",
 
 module.exports = CardNonEditMode;
 
-
 var styles = StyleSheet.create({
   card: {
-    'background': '#ffffcc',
+    'background-image': 'url(./../flashcard.jpg)',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
     'front':{
-      'color':'red'
     },
     edit:{
       'position': 'relative',
@@ -22469,7 +22468,6 @@ var StyleSheet = require('react-style');
 
 var QuizCard = React.createClass({displayName: "QuizCard",
   render: function(){
-    console.log("isFlipped", this.props.isFlipped)
     var side = !this.props.isFlipped ? this.props.cards[this.props.currentCardIndex].front : this.props.cards[this.props.currentCardIndex].back;
     return (
       React.createElement("div", null, 
@@ -22484,7 +22482,7 @@ module.exports = QuizCard;
 
 var styles = StyleSheet.create({
   card: {
-    'background': '#ffffcc',
+    'background-image': 'url(./../flashcard.jpg)',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
