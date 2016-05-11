@@ -34,9 +34,9 @@ var styles = StyleSheet.create({
     'padding': '20px',
     'margin': '20px',
     'text-align': 'center',
-    'front':{
-      'color':'red'
-    },
+    // 'front':{
+    //   'color':'red'
+    // },
     edit:{
       'position': 'relative',
       'bottom': '-46px',
@@ -45,8 +45,8 @@ var styles = StyleSheet.create({
   },
   hr: {
   'border':'none',
-  'border-top':'1px dotted #f00',
-  color:'#fff',
+  'border-top':'1px dotted black',
+  'color':'#fff',
   'background-color':'#fff',
   'height':'1px',
   'width':'50%'

@@ -25,7 +25,8 @@ module.exports = CardNonEditMode;
 
 var styles = StyleSheet.create({
   card: {
-    'background-image': 'url(./../flashcard.jpg)',
+    // 'background-image': 'url(./../flashcard.jpg)',
+    'background': '#ffffcc',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
@@ -41,7 +42,7 @@ var styles = StyleSheet.create({
   },
   hr: {
   'border':'none',
-  'border-top':'1px dotted #f00',
+  'border-top':'1px dotted black',
   color:'#fff',
   'background-color':'#fff',
   'height':'1px',

@@ -35,7 +35,10 @@ var Quiz = React.createClass({
   },
   isGameDone: function(){
     if(this.state.numOfCardsInDeck <= this.state.currentCardIndex){
-      alert("game over");
+      var correct = this.state.score.correct;
+      var incorrect = this.state.score.incorrect;
+      alert("Game over! You got "+ correct+ " correct and " + incorrect+ " incorrect.  That is %"+(correct/(correct+incorrect))*100+ " correct!");
+      debugger;
       //this.showSummary();
       this.props.toggleEditQuizMode();
     }

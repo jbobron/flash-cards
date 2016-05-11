@@ -12,9 +12,6 @@ var QuizButtons = React.createClass({
         <div>
           <button onClick={this.props.cardIncorrect}> Incorrect </button>
         </div>
-        <div>
-          <button onClick={this.props.skipCard}> Skip </button>
-        </div>
       </div>
     )
   }

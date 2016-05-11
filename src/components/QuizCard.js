@@ -18,7 +18,8 @@ module.exports = QuizCard;
 
 var styles = StyleSheet.create({
   card: {
-    'background-image': 'url(./../flashcard.jpg)',
+    // 'background-image': 'url(./../flashcard.jpg)',
+    'background': '#ffffcc',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
