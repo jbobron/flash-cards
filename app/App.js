@@ -22477,9 +22477,11 @@ module.exports = Edit;
 
 },{"./Cards":170,"react":165}],173:[function(require,module,exports){
 var React = require('react');
+var StyleSheet = require('react-style');
 var ScoreBoard = require('./ScoreBoard');
 var QuizCard = require('./QuizCard');
 var QuizButtons = require('./QuizButtons');
+var _ = require('underscore');
 
 var Quiz = React.createClass({displayName: "Quiz",
   getInitialState: function(){
@@ -22489,13 +22491,22 @@ var Quiz = React.createClass({displayName: "Quiz",
       correctPile: [],
       numOfCardsInDeck: this.props.cards.length,
       currentCardIndex: 0,
-      isFlipped: false
+      isFlipped: false,
+      copyOfDeck: this.props.cards
     }
   },
   flipCard: function(){
     this.setState({
       isFlipped: !this.state.isFlipped
     })
+  },
+  shuffleCards: function(){
+    if(this.state.currentCardIndex !== 0){
+      alert("must shuffle before starting quiz");
+      return;
+    } 
+    var shuffledCards = _.shuffle(this.state.copyOfDeck);
+    this.setState({copyOfDeck: shuffledCards});
   },
   cardCorrect: function(){ 
     this.state.score.correct++; 
@@ -22515,18 +22526,18 @@ var Quiz = React.createClass({displayName: "Quiz",
     if(this.state.numOfCardsInDeck <= this.state.currentCardIndex){
       var correct = this.state.score.correct;
       var incorrect = this.state.score.incorrect;
-      alert("Game over! You got "+ correct+ " correct and " + incorrect+ " incorrect.  That is %"+(correct/(correct+incorrect))*100+ " correct!");
+      alert("Game over! You got "+ correct+ " correct and " + incorrect+ " incorrect.  You got %"+(correct/(correct+incorrect))*100+ " correct!");
       //this.showSummary();
       this.props.toggleEditQuizMode();
     }
   },
   render: function(){
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {styles: styles.quizmode}, 
       	React.createElement("h1", null, " Quiz Mode! "), 
           React.createElement(ScoreBoard, {score: this.state.score}), 
-          React.createElement(QuizCard, {isFlipped: this.state.isFlipped, flipCard: this.flipCard, cards: this.props.cards, currentCardIndex: this.state.currentCardIndex}), 
-          React.createElement(QuizButtons, {cardCorrect: this.cardCorrect, cardIncorrect: this.cardIncorrect})
+          React.createElement(QuizCard, {isFlipped: this.state.isFlipped, flipCard: this.flipCard, cards: this.state.copyOfDeck, currentCardIndex: this.state.currentCardIndex}), 
+          React.createElement(QuizButtons, {cardCorrect: this.cardCorrect, cardIncorrect: this.cardIncorrect, shuffleCards: this.shuffleCards})
       )
     )
   }
@@ -22535,9 +22546,18 @@ var Quiz = React.createClass({displayName: "Quiz",
 module.exports = Quiz;
 
 
+var styles = StyleSheet.create({
+  'quizmode': {
+    'margin': '0 auto',
+    'text-align': 'center'
+  }
+})
 
 
-},{"./QuizButtons":174,"./QuizCard":175,"./ScoreBoard":176,"react":165}],174:[function(require,module,exports){
+
+
+
+},{"./QuizButtons":174,"./QuizCard":175,"./ScoreBoard":176,"react":165,"react-style":7,"underscore":166}],174:[function(require,module,exports){
 var React = require('react');
 var StyleSheet = require('react-style');
 
@@ -22551,8 +22571,11 @@ var QuizButtons = React.createClass({displayName: "QuizButtons",
         ), 
         React.createElement("li", {styles: styles.li}, 
           React.createElement("button", {styles: styles.redbutton, onClick: this.props.cardIncorrect}, " Incorrect ")
+        ), 
+        React.createElement("li", {styles: styles.li}, 
+          React.createElement("button", {styles: styles.shufflebutton, onClick: this.props.shuffleCards}, " Shuffle ")
         )
-      )
+     )
     )
   }
 });
@@ -22560,6 +22583,27 @@ var QuizButtons = React.createClass({displayName: "QuizButtons",
 module.exports = QuizButtons;
 
 var styles = StyleSheet.create({
+  'shufflebutton':{
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'fontSize': '14px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid transparent',
+    'borderRadius': '4px',
+  },
   'greenbutton':{
     'display': 'inline-block',
     'padding': '6px 12px',
@@ -22607,8 +22651,7 @@ var styles = StyleSheet.create({
   'ul':{
     'list-style-type': 'none',
     'margin': 0,
-    'padding': 0,
-    'margin-left': '50px'
+    'padding': 0
   },
   'li':{
     'display': 'inline'
@@ -22628,7 +22671,11 @@ var QuizCard = React.createClass({displayName: "QuizCard",
     var side = !this.props.isFlipped ? this.props.cards[this.props.currentCardIndex].front : this.props.cards[this.props.currentCardIndex].back;
     return (
       React.createElement("div", null, 
-        React.createElement("div", {onClick: this.props.flipCard, styles: styles.card}, side)
+        React.createElement("div", {onClick: this.props.flipCard, styles: styles.card}, 
+          React.createElement("div", {styles: styles.cardText}, 
+            side
+          )
+        )
       )
     )
   }
@@ -22641,13 +22688,20 @@ var styles = StyleSheet.create({
   card: {
     // 'background-image': 'url(./../flashcard.jpg)',
     'background': '#ffffcc',
-    'height': '100px',
-    'width': '200px',
+    'height': '200px',
+    'line-height': '200px',
+    'width': '400px',
     'padding': '20px',
-    'margin': '20px',
+    'margin': '0 auto',
+    'margin-top':'50px',
+    'margin-bottom': '50px',
     'text-align': 'center',
     'front':{
       'color':'red'
+    },
+    cardText: {
+      'margin': '0 auto',
+      'display': 'inline-block'
     },
     edit:{
       'position': 'relative',
@@ -22676,10 +22730,7 @@ var ScoreBoard = React.createClass({displayName: "ScoreBoard",
     return (
       React.createElement("div", null, 
         React.createElement("div", null, 
-          "Right: ", this.props.score.correct
-        ), 
-        React.createElement("div", null, 
-          "Wrong: ", this.props.score.incorrect
+          "Right: ", this.props.score.correct, "          Wrong: ", this.props.score.incorrect
         )
       )
     )

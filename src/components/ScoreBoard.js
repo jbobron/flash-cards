@@ -7,10 +7,7 @@ var ScoreBoard = React.createClass({
     return (
       <div>
         <div>
-          Right: {this.props.score.correct}
-        </div>
-        <div>
-          Wrong: {this.props.score.incorrect}
+          Right: {this.props.score.correct}          Wrong: {this.props.score.incorrect}
         </div>
       </div>
     )

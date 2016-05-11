@@ -7,7 +7,11 @@ var QuizCard = React.createClass({
     var side = !this.props.isFlipped ? this.props.cards[this.props.currentCardIndex].front : this.props.cards[this.props.currentCardIndex].back;
     return (
       <div>
-        <div onClick={this.props.flipCard} styles={styles.card}>{side}</div>
+        <div onClick={this.props.flipCard} styles={styles.card}>
+          <div styles={styles.cardText}>
+            {side}
+          </div>
+        </div>
       </div>
     )
   }
@@ -20,13 +24,20 @@ var styles = StyleSheet.create({
   card: {
     // 'background-image': 'url(./../flashcard.jpg)',
     'background': '#ffffcc',
-    'height': '100px',
-    'width': '200px',
+    'height': '200px',
+    'line-height': '200px',
+    'width': '400px',
     'padding': '20px',
-    'margin': '20px',
+    'margin': '0 auto',
+    'margin-top':'50px',
+    'margin-bottom': '50px',
     'text-align': 'center',
     'front':{
       'color':'red'
+    },
+    cardText: {
+      'margin': '0 auto',
+      'display': 'inline-block'
     },
     edit:{
       'position': 'relative',
