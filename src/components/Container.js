@@ -8,7 +8,7 @@ var Container = React.createClass({
   getInitialState: function(){
     return {
       currentPage: "edit",
-      cards: [{id:0, front: "front0", back:"back0"},{id:1, front: "front1", back:"back1"}, {id:2, front: "front2", back:"back2"}, {id:3, front: "front3", back:"back3"}],
+      cards: [{id:0, front: "yellow", back:"amarillo"},{id:1, front: "pink", back:"rosa"}, {id:2, front: "red", back:"rojo"}, {id:3, front: "orange", back:"naranja"}],
       idCounter: 4
     }
   },
@@ -51,7 +51,7 @@ var Container = React.createClass({
                   deleteCard={this.deleteCard}
                 />;
     } else if(this.state.currentPage === "quiz"){
-      partial = <Quiz cards={this.state.cards}/>;
+      partial = <Quiz cards={this.state.cards} toggleEditQuizMode={this.toggleEditQuizMode}/>;
     }
     return (
       <div>

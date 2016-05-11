@@ -1,4 +1,5 @@
 var React = require('react');
+var StyleSheet = require('react-style');
 
 
 var ScoreBoard = React.createClass({

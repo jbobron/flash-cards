@@ -9,17 +9,43 @@ var Quiz = React.createClass({
       score: {correct: 0, incorrect: 0},
       incorrectPile: [],
       correctPile: [],
-      numOfCardsInDeck: this.props.cards.length
+      numOfCardsInDeck: this.props.cards.length,
+      currentCardIndex: 0,
+      isFlipped: false
     }
   },
-  cardCorrect: function(){ this.state.score.correct++; this.setState({ score: this.state.score}) },
-  cardIncorrect: function(){ this.state.score.incorrect++; this.setState({ score: this.state.score}) },
+  flipCard: function(){
+    this.setState({
+      isFlipped: !this.state.isFlipped
+    })
+  },
+  cardCorrect: function(){ 
+    this.state.score.correct++; 
+    this.setState({ score: this.state.score});
+    this.state.currentCardIndex++;
+    this.isGameDone();
+    if(this.state.isFlipped) this.flipCard();
+  },
+  cardIncorrect: function(){ 
+    this.state.score.incorrect++; 
+    this.setState({ score: this.state.score});
+    this.state.currentCardIndex++;
+    this.isGameDone();
+    if(this.state.isFlipped) this.flipCard();
+  },
+  isGameDone: function(){
+    if(this.state.numOfCardsInDeck <= this.state.currentCardIndex){
+      alert("game over");
+      //this.showSummary();
+      this.props.toggleEditQuizMode();
+    }
+  },
   render: function(){
     return (
       <div>
       	<h1> Quiz Mode! </h1>
           <ScoreBoard score={this.state.score} />
-          <QuizCard />
+          <QuizCard isFlipped={this.state.isFlipped} flipCard={this.flipCard} cards={this.props.cards} currentCardIndex={this.state.currentCardIndex}/>
           <QuizButtons cardCorrect={this.cardCorrect} cardIncorrect={this.cardIncorrect} />
       </div>
     )
@@ -29,24 +55,3 @@ var Quiz = React.createClass({
 module.exports = Quiz;
 
 
-/*
-getInitialState: function(){
-    return {
-      isFlipped: false
-    }
-  },
-flipCard: function(){
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    })
-  },
-  render: function(){
-    var side = !this.state.isFlipped ? this.props.front : this.props.back;
-    return (
-      <div>
-        <div onClick={this.flipCard} styles={styles.card}>{side}</div>
-      </div>
-    )
-  }
-
-*/

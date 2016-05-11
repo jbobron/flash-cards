@@ -22284,7 +22284,7 @@ var Container = React.createClass({displayName: "Container",
   getInitialState: function(){
     return {
       currentPage: "edit",
-      cards: [{id:0, front: "front0", back:"back0"},{id:1, front: "front1", back:"back1"}, {id:2, front: "front2", back:"back2"}, {id:3, front: "front3", back:"back3"}],
+      cards: [{id:0, front: "yellow", back:"amarillo"},{id:1, front: "pink", back:"rosa"}, {id:2, front: "red", back:"rojo"}, {id:3, front: "orange", back:"naranja"}],
       idCounter: 4
     }
   },
@@ -22327,7 +22327,7 @@ var Container = React.createClass({displayName: "Container",
                   deleteCard: this.deleteCard}
                 );
     } else if(this.state.currentPage === "quiz"){
-      partial = React.createElement(Quiz, {cards: this.state.cards});
+      partial = React.createElement(Quiz, {cards: this.state.cards, toggleEditQuizMode: this.toggleEditQuizMode});
     }
     return (
       React.createElement("div", null, 
@@ -22387,17 +22387,43 @@ var Quiz = React.createClass({displayName: "Quiz",
       score: {correct: 0, incorrect: 0},
       incorrectPile: [],
       correctPile: [],
-      numOfCardsInDeck: this.props.cards.length
+      numOfCardsInDeck: this.props.cards.length,
+      currentCardIndex: 0,
+      isFlipped: false
     }
   },
-  cardCorrect: function(){ this.state.score.correct++; this.setState({ score: this.state.score}) },
-  cardIncorrect: function(){ this.state.score.incorrect++; this.setState({ score: this.state.score}) },
+  flipCard: function(){
+    this.setState({
+      isFlipped: !this.state.isFlipped
+    })
+  },
+  cardCorrect: function(){ 
+    this.state.score.correct++; 
+    this.setState({ score: this.state.score});
+    this.state.currentCardIndex++;
+    this.isGameDone();
+    if(this.state.isFlipped) this.flipCard();
+  },
+  cardIncorrect: function(){ 
+    this.state.score.incorrect++; 
+    this.setState({ score: this.state.score});
+    this.state.currentCardIndex++;
+    this.isGameDone();
+    if(this.state.isFlipped) this.flipCard();
+  },
+  isGameDone: function(){
+    if(this.state.numOfCardsInDeck <= this.state.currentCardIndex){
+      alert("game over");
+      //this.showSummary();
+      this.props.toggleEditQuizMode();
+    }
+  },
   render: function(){
     return (
       React.createElement("div", null, 
       	React.createElement("h1", null, " Quiz Mode! "), 
           React.createElement(ScoreBoard, {score: this.state.score}), 
-          React.createElement(QuizCard, null), 
+          React.createElement(QuizCard, {isFlipped: this.state.isFlipped, flipCard: this.flipCard, cards: this.props.cards, currentCardIndex: this.state.currentCardIndex}), 
           React.createElement(QuizButtons, {cardCorrect: this.cardCorrect, cardIncorrect: this.cardIncorrect})
       )
     )
@@ -22406,6 +22432,82 @@ var Quiz = React.createClass({displayName: "Quiz",
 
 module.exports = Quiz;
 
+
+
+
+},{"./QuizButtons":174,"./QuizCard":175,"./ScoreBoard":176,"react":165}],174:[function(require,module,exports){
+var React = require('react');
+var StyleSheet = require('react-style');
+
+
+var QuizButtons = React.createClass({displayName: "QuizButtons",
+  render: function(){
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", null, 
+          React.createElement("button", {onClick: this.props.cardCorrect}, " Correct ")
+        ), 
+        React.createElement("div", null, 
+          React.createElement("button", {onClick: this.props.cardIncorrect}, " Incorrect ")
+        ), 
+        React.createElement("div", null, 
+          React.createElement("button", {onClick: this.props.skipCard}, " Skip ")
+        )
+      )
+    )
+  }
+});
+
+module.exports = QuizButtons;
+
+
+
+},{"react":165,"react-style":7}],175:[function(require,module,exports){
+var React = require('react');
+var StyleSheet = require('react-style');
+
+
+var QuizCard = React.createClass({displayName: "QuizCard",
+  render: function(){
+    console.log("isFlipped", this.props.isFlipped)
+    var side = !this.props.isFlipped ? this.props.cards[this.props.currentCardIndex].front : this.props.cards[this.props.currentCardIndex].back;
+    return (
+      React.createElement("div", null, 
+        React.createElement("div", {onClick: this.props.flipCard, styles: styles.card}, side)
+      )
+    )
+  }
+});
+
+module.exports = QuizCard;
+
+
+var styles = StyleSheet.create({
+  card: {
+    'background': '#ffffcc',
+    'height': '100px',
+    'width': '200px',
+    'padding': '20px',
+    'margin': '20px',
+    'text-align': 'center',
+    'front':{
+      'color':'red'
+    },
+    edit:{
+      'position': 'relative',
+      'bottom': '-46px',
+      'right': '-100px'
+    }
+  },
+  hr: {
+  'border':'none',
+  'border-top':'1px dotted #f00',
+  color:'#fff',
+  'background-color':'#fff',
+  'height':'1px',
+  'width':'50%'
+}
+})
 
 /*
 getInitialState: function(){
@@ -22429,52 +22531,9 @@ flipCard: function(){
 
 */
 
-},{"./QuizButtons":174,"./QuizCard":175,"./ScoreBoard":176,"react":165}],174:[function(require,module,exports){
+},{"react":165,"react-style":7}],176:[function(require,module,exports){
 var React = require('react');
-
-
-var QuizButtons = React.createClass({displayName: "QuizButtons",
-  render: function(){
-    return (
-      React.createElement("div", null, 
-        React.createElement("div", null, 
-          React.createElement("button", {onClick: this.props.cardCorrect}, " Correct ")
-        ), 
-        React.createElement("div", null, 
-          React.createElement("button", {onClick: this.props.cardIncorrect}, " Incorrect ")
-        )
-      )
-    )
-  }
-});
-
-module.exports = QuizButtons;
-
-
-
-},{"react":165}],175:[function(require,module,exports){
-var React = require('react');
-
-
-var QuizCard = React.createClass({displayName: "QuizCard",
-  getInitialState: function(){
-    return {
-
-    }
-  },
-  render: function(){
-    return (
-      React.createElement("div", null
-      )
-    )
-  }
-});
-
-module.exports = QuizCard;
-
-
-},{"react":165}],176:[function(require,module,exports){
-var React = require('react');
+var StyleSheet = require('react-style');
 
 
 var ScoreBoard = React.createClass({displayName: "ScoreBoard",
@@ -22494,7 +22553,7 @@ var ScoreBoard = React.createClass({displayName: "ScoreBoard",
 
 module.exports = ScoreBoard;
 
-},{"react":165}],177:[function(require,module,exports){
+},{"react":165,"react-style":7}],177:[function(require,module,exports){
 var React = require('react');
 var Container = require('./components/Container');
 

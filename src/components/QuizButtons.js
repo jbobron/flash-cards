@@ -1,4 +1,5 @@
 var React = require('react');
+var StyleSheet = require('react-style');
 
 
 var QuizButtons = React.createClass({
@@ -10,6 +11,9 @@ var QuizButtons = React.createClass({
         </div>
         <div>
           <button onClick={this.props.cardIncorrect}> Incorrect </button>
+        </div>
+        <div>
+          <button onClick={this.props.skipCard}> Skip </button>
         </div>
       </div>
     )
