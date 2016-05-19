@@ -1,0 +1,64 @@
+body{
+    margin:0px;
+}
+
+h1, h3 {
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.modal {
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    margin: -175px 0 0 -221px;
+
+    border: 1px solid #ccc;
+    background: white;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 28px;
+
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    background: white;
+
+    color: white;
+    background-color: #1798c1;
+    font-weight: bold;
+
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+
+.modal-anim-enter {
+    opacity: 0.00;
+    transform: scale(0.7);
+    transition: all 0.2s;
+}
+
+.modal-anim-enter.modal-anim-enter-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-anim-leave {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.2s;
+}
+
+.modal-anim-leave.modal-anim-leave-active {
+    opacity: 0.00;
+    transform: scale(0.7);
+}

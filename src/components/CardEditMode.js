@@ -28,7 +28,7 @@ module.exports = CardEditMode;
 
 var styles = StyleSheet.create({
   card: {
-    'background': '#ffffcc',
+    'background': '#F8F8F8',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
@@ -52,6 +52,7 @@ var styles = StyleSheet.create({
     'display': 'inline-block',
     'padding': '6px 12px',
     'margin': '5px',
+    'margin-top':'20px',
     'fontSize': '10px',
     'fontWeight': '400',
     'lineHeight': '1.42857143',
@@ -67,6 +68,6 @@ var styles = StyleSheet.create({
     'userSelect': 'none',
     'backgroundImage': 'none',
     'border': '1px solid transparent',
-    'borderRadius': '4px'
+    'borderRadius': '0px'
   }
 });

@@ -27,7 +27,7 @@ module.exports = CardNonEditMode;
 
 var styles = StyleSheet.create({
   'card': {
-    'background': '#ffffcc',
+    'background': '#F8F8F8',
     'height': '100px',
     'width': '200px',
     'padding': '20px',
@@ -73,6 +73,6 @@ var styles = StyleSheet.create({
     'userSelect': 'none',
     'backgroundImage': 'none',
     'border': '1px solid transparent',
-    'borderRadius': '4px'
+    'borderRadius': '0px'
   }
 });

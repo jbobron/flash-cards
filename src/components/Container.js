@@ -54,7 +54,9 @@ var Container = React.createClass({
     }
     return (
       <div>
+      <div styles={styles.navbar}>
        <button styles={styles.button} onClick={this.toggleEditQuizMode}>Switch to Edit/Quiz Mode</button>
+      </div>
         {partial}
       </div>
     );
@@ -64,6 +66,11 @@ var Container = React.createClass({
 module.exports = Container;
 
 var styles = StyleSheet.create({
+  'navbar': {
+    'background': '#01344E',
+    'padding': '10px',
+    'margin-bottom': '20px'
+  },
   'button': {
     'display': 'inline-block',
     'padding': '6px 12px',
@@ -83,6 +90,6 @@ var styles = StyleSheet.create({
     'userSelect': 'none',
     'backgroundImage': 'none',
     'border': '1px solid transparent',
-    'borderRadius': '4px'
+    'borderRadius': '0px'
   }
 });
