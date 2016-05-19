@@ -70,5 +70,4 @@ var styles = StyleSheet.create({
   'height':'1px',
   'width':'50%'
 }
-})
-
+});

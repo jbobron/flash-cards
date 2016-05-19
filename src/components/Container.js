@@ -55,7 +55,14 @@ var Container = React.createClass({
     return (
       <div>
       <div styles={styles.navbar}>
-       <button styles={styles.button} onClick={this.toggleEditQuizMode}>Switch to Edit/Quiz Mode</button>
+      <ul styles={styles.ul}>
+        <li styles={styles.li}>
+          <button styles={styles.button} onClick={this.toggleEditQuizMode}>Switch to Edit/Quiz Mode</button>
+        </li>
+        <li styles={styles.liHeader}>
+          <h1 styles={styles.header}>Flash</h1>
+        </li>
+       </ul>
       </div>
         {partial}
       </div>
@@ -66,12 +73,19 @@ var Container = React.createClass({
 module.exports = Container;
 
 var styles = StyleSheet.create({
+  'header': {
+    'display': 'inline',
+    'text-align': 'center',
+    'color': 'white'
+  },
   'navbar': {
     'background': '#01344E',
     'padding': '10px',
-    'margin-bottom': '20px'
+    'margin-bottom': '20px',
+    'text-align': 'center'
   },
   'button': {
+    'float': 'left',
     'display': 'inline-block',
     'padding': '6px 12px',
     'margin': '5px',
@@ -91,5 +105,18 @@ var styles = StyleSheet.create({
     'backgroundImage': 'none',
     'border': '1px solid transparent',
     'borderRadius': '0px'
+  },
+  'ul':{
+    'text-align': 'center',
+    'list-style-type': 'none',
+    'margin': 0,
+    'padding': 0
+  },
+  'li':{
+    'display': 'inline'
+  },
+  'liHeader':{
+    'padding-right': '212px'
   }
+
 });

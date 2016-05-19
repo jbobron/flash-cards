@@ -23117,8 +23117,7 @@ var styles = StyleSheet.create({
   'height':'1px',
   'width':'50%'
 }
-})
-
+});
 
 
 },{"./CardEditMode":178,"./CardNonEditMode":179,"react":175,"react-style":8}],178:[function(require,module,exports){
@@ -23141,7 +23140,7 @@ var CardEditMode = React.createClass({displayName: "CardEditMode",
         React.createElement("hr", {styles: styles.hr}), 
         React.createElement("input", {onChange: this.handleBackEditModeInputChange, value: this.state.tempBack, styles: styles.card.back}), React.createElement("br", null), 
         React.createElement("button", {onClick: this.props.handleDone.bind(this, this.props.id, this.state.tempFront, this.state.tempBack), styles: styles.button}, "Done"), 
-        React.createElement("button", {onClick: this.props.handleDelete.bind(this,this.props.id), styles: styles.button}, "Delete Card")
+        React.createElement("button", {onClick: this.props.handleDelete.bind(this,this.props.id), styles: styles.buttonSecondary}, "Delete Card")
       )
     );
   }
@@ -23193,6 +23192,30 @@ var styles = StyleSheet.create({
     'backgroundImage': 'none',
     'border': '1px solid transparent',
     'borderRadius': '0px'
+  },
+  'buttonSecondary': {
+    'display': 'inline-block',
+    'padding': '6px 12px',
+    'margin': '5px',
+    'margin-top':'20px',
+    'fontSize': '10px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '1px solid #1798c1',
+    'borderRadius': '0px',
+    'color': '#1798c1',
+    'background-color': 'white',
   }
 });
 
@@ -23278,7 +23301,6 @@ var styles = StyleSheet.create({
 });
 
 },{"react":175,"react-style":8}],180:[function(require,module,exports){
-
 var React = require('react');
 var Card = require('./Card');
 var StyleSheet = require('react-style');
@@ -23410,7 +23432,14 @@ var Container = React.createClass({displayName: "Container",
     return (
       React.createElement("div", null, 
       React.createElement("div", {styles: styles.navbar}, 
-       React.createElement("button", {styles: styles.button, onClick: this.toggleEditQuizMode}, "Switch to Edit/Quiz Mode")
+      React.createElement("ul", {styles: styles.ul}, 
+        React.createElement("li", {styles: styles.li}, 
+          React.createElement("button", {styles: styles.button, onClick: this.toggleEditQuizMode}, "Switch to Edit/Quiz Mode")
+        ), 
+        React.createElement("li", {styles: styles.liHeader}, 
+          React.createElement("h1", {styles: styles.header}, "Flash")
+        )
+       )
       ), 
         partial
       )
@@ -23421,12 +23450,19 @@ var Container = React.createClass({displayName: "Container",
 module.exports = Container;
 
 var styles = StyleSheet.create({
+  'header': {
+    'display': 'inline',
+    'text-align': 'center',
+    'color': 'white'
+  },
   'navbar': {
     'background': '#01344E',
     'padding': '10px',
-    'margin-bottom': '20px'
+    'margin-bottom': '20px',
+    'text-align': 'center'
   },
   'button': {
+    'float': 'left',
     'display': 'inline-block',
     'padding': '6px 12px',
     'margin': '5px',
@@ -23446,13 +23482,25 @@ var styles = StyleSheet.create({
     'backgroundImage': 'none',
     'border': '1px solid transparent',
     'borderRadius': '0px'
+  },
+  'ul':{
+    'text-align': 'center',
+    'list-style-type': 'none',
+    'margin': 0,
+    'padding': 0
+  },
+  'li':{
+    'display': 'inline'
+  },
+  'liHeader':{
+    'padding-right': '212px'
   }
+
 });
 
 },{"./Edit":182,"./Quiz":183,"react":175,"react-style":8,"underscore":176}],182:[function(require,module,exports){
 var React = require('react');
 var Cards = require('./Cards');
-
 
 var Edit = React.createClass({displayName: "Edit",
   render: function(){
@@ -23607,7 +23655,6 @@ module.exports = Quiz;
 var React = require('react');
 var StyleSheet = require('react-style');
 
-
 var QuizButtons = React.createClass({displayName: "QuizButtons",
   render: function(){
     return (
@@ -23619,7 +23666,7 @@ var QuizButtons = React.createClass({displayName: "QuizButtons",
           React.createElement("button", {styles: styles.button, onClick: this.props.cardIncorrect}, " Incorrect ")
         ), 
         React.createElement("li", {styles: styles.li}, 
-          React.createElement("button", {styles: styles.button, onClick: this.props.shuffleCards}, " Shuffle ")
+          React.createElement("button", {styles: styles.buttonSecondary, onClick: this.props.shuffleCards}, " Shuffle ")
         )
      )
     )
@@ -23652,6 +23699,30 @@ var styles = StyleSheet.create({
     'background-color': '#1798c1',
     'color': 'white'
   },
+  'buttonSecondary':{
+    'display': 'inline-block',
+    'padding': '12px 28px',
+    'margin': '5px',
+    'fontSize': '18px',
+    'fontWeight': '400',
+    'lineHeight': '1.42857143',
+    'textAlign': 'center',
+    'whiteSpace': 'nowrap',
+    'verticalAlign': 'middle',
+    'MsTouchAction': 'manipulation',
+    'touchAction': 'manipulation',
+    'cursor': 'pointer',
+    'WebkitUserSelect': 'none',
+    'MozUserSelect': 'none',
+    'MsUserSelect': 'none',
+    'userSelect': 'none',
+    'backgroundImage': 'none',
+    'border': '2px solid #1798c1',
+    'borderRadius': '0px',
+    'background-color': 'white',
+    'color': '#1798c1',
+
+  },
   'ul':{
     'list-style-type': 'none',
     'margin': 0,
@@ -23659,8 +23730,6 @@ var styles = StyleSheet.create({
   },
   'li':{
     'display': 'inline'
-
-
   }
 })
 
@@ -23668,7 +23737,6 @@ var styles = StyleSheet.create({
 },{"react":175,"react-style":8}],185:[function(require,module,exports){
 var React = require('react');
 var StyleSheet = require('react-style');
-
 
 var QuizCard = React.createClass({displayName: "QuizCard",
   render: function(){
@@ -23691,6 +23759,7 @@ module.exports = QuizCard;
 var styles = StyleSheet.create({
   card: {
     // 'background-image': 'url(./../flashcard.jpg)',
+    'font-size': '36px',
     'background': '#F8F8F8',
     'height': '200px',
     'line-height': '200px',
@@ -23721,41 +23790,18 @@ var styles = StyleSheet.create({
     'height':'1px',
     'width':'50%'
   }
-})
-
-/*
-getInitialState: function(){
-    return {
-      isFlipped: false
-    }
-  },
-flipCard: function(){
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    })
-  },
-  render: function(){
-    var side = !this.state.isFlipped ? this.props.front : this.props.back;
-    return (
-      <div>
-        <div onClick={this.flipCard} styles={styles.card}>{side}</div>
-      </div>
-    )
-  }
-
-*/
+});
 
 },{"react":175,"react-style":8}],186:[function(require,module,exports){
 var React = require('react');
 var StyleSheet = require('react-style');
-
 
 var ScoreBoard = React.createClass({displayName: "ScoreBoard",
   render: function(){
     return (
       React.createElement("div", null, 
         React.createElement("div", null, 
-          "Right: ", this.props.score.correct, "          Wrong: ", this.props.score.incorrect
+          "Right: ", this.props.score.correct, " Wrong: ", this.props.score.incorrect
         )
       )
     )

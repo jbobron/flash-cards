@@ -1,4 +1,3 @@
-
 var React = require('react');
 var Card = require('./Card');
 var StyleSheet = require('react-style');

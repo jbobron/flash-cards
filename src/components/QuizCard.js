@@ -1,7 +1,6 @@
 var React = require('react');
 var StyleSheet = require('react-style');
 
-
 var QuizCard = React.createClass({
   render: function(){
     var side;
@@ -23,6 +22,7 @@ module.exports = QuizCard;
 var styles = StyleSheet.create({
   card: {
     // 'background-image': 'url(./../flashcard.jpg)',
+    'font-size': '36px',
     'background': '#F8F8F8',
     'height': '200px',
     'line-height': '200px',
@@ -53,26 +53,4 @@ var styles = StyleSheet.create({
     'height':'1px',
     'width':'50%'
   }
-})
-
-/*
-getInitialState: function(){
-    return {
-      isFlipped: false
-    }
-  },
-flipCard: function(){
-    this.setState({
-      isFlipped: !this.state.isFlipped
-    })
-  },
-  render: function(){
-    var side = !this.state.isFlipped ? this.props.front : this.props.back;
-    return (
-      <div>
-        <div onClick={this.flipCard} styles={styles.card}>{side}</div>
-      </div>
-    )
-  }
-
-*/
+});

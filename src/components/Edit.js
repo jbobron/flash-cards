@@ -1,7 +1,6 @@
 var React = require('react');
 var Cards = require('./Cards');
 
-
 var Edit = React.createClass({
   render: function(){
     return (
